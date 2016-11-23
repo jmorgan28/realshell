@@ -10,14 +10,11 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-
-
-int main(int argc,char * argy[]){
+int execute(){
   char a[256];
   char *s = a;
   fgets(a,sizeof(a),stdin);
   a[strlen(a) - 1] = 0;
-  
   
   char * commands[256];
   int w = 0;
@@ -27,9 +24,20 @@ int main(int argc,char * argy[]){
   }
   commands[w] = 0;
   
-  //printf("%s\n", commands[0]);
-  //printf("%s\n", commands[1]);
   execvp(commands[0],commands);
-  //printf("works");
+  return 0;
+}
+
+int main(){
+  int p = getpid();
+  while(1){
+    fork();
+    if (getppid() == p){
+      printf(">>>");
+      execute();
+      exit(0);
+    }
+    wait();
+  }
   return 0;
 }
