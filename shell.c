@@ -10,21 +10,6 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-/*int execute(char *p){
-  char *s = p;
-  if(strchr(p, "\n")){
-      *strchr(p,"\n") = 0;
-    }
-  char * commands[256];
-  int w = 0;
-  while(w < sizeof(s)){
-    commands[w] = strsep(&s, " ");
-    w ++;
-  }
-  commands[w] = 0;
-  execvp(commands[0],commands);
-  return 0;
-  }*/
 
 int execute(){
   char a[256];
@@ -44,6 +29,18 @@ int execute(){
   return 0;
   }
 
+char * parsesemi(){
+  char a[256];
+  char * b[256];
+  fgets(a,sizeof(a),stdin);
+  int w = 0;
+  char * s = a;
+  while(w < sizeof(s)){
+    b[w] = strsep(&s, ";");
+    w ++;
+  }
+  return b;
+}
 
 int main(){
   int p = getpid();
@@ -51,16 +48,7 @@ int main(){
     fork();
     if (getppid() == p){
       printf(">>>");
-      char a[256];
-      char * b[256];
-      fgets(a,sizeof(a),stdin);
-      int w = 0;
-      char * s = a;
-      while(w < sizeof(s)){
-	b[w] = strsep(&s, ";");
-	w ++;
-      }
-      
+      //parsesemi();
       execute();
       exit(0);
     }
