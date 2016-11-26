@@ -10,11 +10,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
-/*int execute(char *p){
+int execute(char *p){
   char *s = p;
-  if(strchr(p, "\n")){
-      *strchr(p,"\n") = 0;
-    }
+  p[strlen(p) - 1] = 0;
   char * commands[256];
   int w = 0;
   while(w < sizeof(s)){
@@ -24,26 +22,7 @@
   commands[w] = 0;
   execvp(commands[0],commands);
   return 0;
-  }*/
-
-int execute(){
-  char a[256];
-  char *s = a;
-  fgets(a,sizeof(a),stdin);
-  a[strlen(a) - 1] = 0;
-  
-  char * commands[256];
-  int w = 0;
-  while(w < sizeof(s)){
-    commands[w] = strsep(&s, " ");
-    w ++;
-  }
-  commands[w] = 0;
-  
-  execvp(commands[0],commands);
-  return 0;
-  }
-
+}
 
 int main(){
   int p = getpid();
@@ -52,17 +31,17 @@ int main(){
     if (getppid() == p){
       printf(">>>");
       char a[256];
-      char * b[256];
+      char *b[256];
       fgets(a,sizeof(a),stdin);
       int w = 0;
-      char * s = a;
-      while(w < sizeof(s)){
-	b[w] = strsep(&s, ";");
+      while(a[w] = strsep(&b, ";"))
 	w ++;
+    
+      while(b[w]){
+	printf("%s\n",b[w])
+	  //execute(b[w]);
+	  //exit(0);
       }
-      
-      execute();
-      exit(0);
     }
     wait();
   }
