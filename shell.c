@@ -11,12 +11,9 @@
 #include <unistd.h>
 
 
-int execute(){
-  char a[256];
+int execute(char * a){
   char *s = a;
-  fgets(a,sizeof(a),stdin);
   a[strlen(a) - 1] = 0;
-  
   char * commands[256];
   int w = 0;
   while(w < sizeof(s)){
@@ -29,17 +26,16 @@ int execute(){
   return 0;
   }
 
-char * parsesemi(){
-  char a[256];
-  char * b[256];
-  fgets(a,sizeof(a),stdin);
+char ** parsesemi(char * a){
+  char ** b[256]; //= (char *)(malloc(sizeof(char *))) ;
   int w = 0;
   char * s = a;
-  while(w < sizeof(s)){
+  while(s){
     b[w] = strsep(&s, ";");
+    //printf("%s\n", strsep(&s, ";"));
     w ++;
   }
-  return b;
+  return  b;
 }
 
 int main(){
@@ -48,8 +44,11 @@ int main(){
     fork();
     if (getppid() == p){
       printf(">>>");
-      //parsesemi();
-      execute();
+      char a[256];
+      fgets(a,sizeof(a),stdin);
+      char ** p = parsesemi(a);
+      //error
+      execute(p[0]);
       exit(0);
     }
     wait();
