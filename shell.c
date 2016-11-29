@@ -13,6 +13,7 @@
 
 int execute(char * a){
   char *s = a;
+  //must check for \n
   a[strlen(a) - 1] = 0;
   char * commands[256];
   int w = 0;
