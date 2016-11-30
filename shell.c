@@ -28,7 +28,7 @@ int execute(char * a){
   }
 
 char ** parsesemi(char * a){
-  char ** b[256]; //= (char *)(malloc(sizeof(char *))) ;
+  char ** b = (char **)(malloc(sizeof(char *)));
   int w = 0;
   char * s = a;
   while(s){
@@ -48,7 +48,6 @@ int main(){
       char a[256];
       fgets(a,sizeof(a),stdin);
       char ** p = parsesemi(a);
-      //error
       execute(p[0]);
       exit(0);
     }
