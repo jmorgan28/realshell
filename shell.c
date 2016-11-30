@@ -50,8 +50,13 @@ int main(){
       char a[256];
       fgets(a,sizeof(a),stdin);
       char ** p = parsesemi(a);
-      execute(p[0]);
+      int i = 0;
+      while(p[i]){
+	//printf("%s\n",p[i]);
+	execute(p[i]);
+      }
       exit(0);
+      
     }
     wait();
   }
