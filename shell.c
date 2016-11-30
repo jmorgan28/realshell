@@ -24,6 +24,12 @@ int execute(char * a){
     w ++;
   }
   commands[w] = 0;
+  if(strcmp(commands[0], "cd") == 0){
+    // doesn't seem to change confused 
+    //printf("%s\n", commands[1]);
+    chdir(commands[1]);
+    return 0;
+  }
   
   execvp(commands[0],commands);
   return 0;
