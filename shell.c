@@ -53,18 +53,18 @@ char ** parsesemi(char * a){
 }
 
 int main(){
-  int p;// = getpid();
+  int p = getpid();
   while(1){
-    p = fork();
-    if (p == 0){
+    fork();
+    if (getppid() == p){
       printf(">>>");
       char a[256];
       fgets(a,sizeof(a),stdin);
-      char ** p = parsesemi(a);
+      char ** f = parsesemi(a);
       int i = 0;
-      while(p[i]){
-	//printf("%s\n",p[i]);
-	execute(p[i]);
+      while(f[i]){
+	//printf("%s\n",f[i]);
+	execute(f[i]);
 	i ++;
       }
       exit(0);
