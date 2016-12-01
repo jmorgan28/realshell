@@ -63,6 +63,9 @@ int main(){
       fgets(a,sizeof(a),stdin);
       char ** f = parsesemi(a);
       int i = 0;
+      // if(strstr(f[0], "cd")){
+      //execute(f[0]);
+      //}
       while(f[i]){
 	fork();
 	if (getppid() == p){
