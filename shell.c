@@ -68,6 +68,7 @@ int main(){
 	if (getppid() == p){
 	  execute(f[i]);
 	}
+	wait();
 	// stops after execute
 	i ++;
       }
