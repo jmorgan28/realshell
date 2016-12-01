@@ -1,3 +1,5 @@
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -55,22 +57,22 @@ char ** parsesemi(char * a){
 int main(){
   int p = getpid();
   while(1){
-    fork();
-    if (getppid() == p){
-      printf(">>>");
+    if(getpid() == p){
       char a[256];
+      printf(">>>");
       fgets(a,sizeof(a),stdin);
       char ** f = parsesemi(a);
       int i = 0;
       while(f[i]){
-	//printf("%s\n",f[i]);
-	execute(f[i]);
+	fork();
+	if (getppid() == p){
+	  execute(f[i]);
+	}
+	// stops after execute
 	i ++;
       }
-      exit(0);
-      
+      wait();
     }
-    wait();
   }
   return 0;
 }
