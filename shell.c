@@ -75,28 +75,39 @@ int main(){
   while(1){
     if(getpid() == p){
       char a[256];
-      printf(">>>");
+      printf(">>> ");
       fgets(a,sizeof(a),stdin);
       char ** f = parsesemi(a, ";");
       int i = 0;
-      // if(strstr(f[0], "cd")){
-      //execute(f[0]);
-      //}
-      if (strstr(a,">") != NULL){
-	char ** m = parsesemi(a,">");
-	//printf("%s", m[0]);
-	if(strstr(m,"\n")){
-	  *(strstr(m,"\n")) = 0;
-	}
-	reOut(m[0],m[1]);
+      // cd only works when it's first
+      if(strstr(f[0], "cd ")){
+	execute(f[0]);
+	i = 1;
       }
       while(f[i]){
 	fork();
-	if (getppid() == p){
+	// output
+	if (getppid() == p && strstr(f[i],">") != NULL){
+	  char ** m = parsesemi(f[i],">");
+	  if(strstr(m[1],"\n")){
+	    *(strstr(m[1],"\n")) = 0;
+	  }
+	  reOut(m[0],m[1]);
+	}
+	// input
+	else if (getppid() == p && strstr(f[i],"<") != NULL){
+          char ** m = parsesemi(f[i],"<");
+          if(strstr(m[1],"\n")){
+            *(strstr(m[1],"\n")) = 0;
+          }
+          reIn(m[0],m[1]);
+        }
+	// regular commands
+	else if (getppid() == p){
 	  execute(f[i]);
 	}
 	wait();
-	// stops after execute
+	// forks stop after execute
 	i ++;
       }
       wait();
