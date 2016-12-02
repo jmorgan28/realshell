@@ -1,5 +1,3 @@
-
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -40,7 +38,7 @@ int execute(char * a){
   
   execvp(commands[0],commands);
   return 0;
-}
+  }
 
 void reOut(char* a, char* file) {
   int sout = dup(STDOUT_FILENO); 
@@ -60,8 +58,7 @@ void reIn(char* a, char* file) {
   close(f);
 }
 
-
-char ** parsesemi(char * a, char spliter){
+char ** parsesemi(char * a, char * spliter){
   char ** b = (char **)(malloc(sizeof(char *)));
   int w = 0;
   char * s = a;
@@ -80,7 +77,7 @@ int main(){
       char a[256];
       printf(">>>");
       fgets(a,sizeof(a),stdin);
-      char ** f = parsesemi(a,";");
+      char ** f = parsesemi(a, ";");
       int i = 0;
       // if(strstr(f[0], "cd")){
       //execute(f[0]);
@@ -99,3 +96,4 @@ int main(){
   }
   return 0;
 }
+
