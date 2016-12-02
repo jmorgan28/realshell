@@ -40,14 +40,33 @@ int execute(char * a){
   
   execvp(commands[0],commands);
   return 0;
-  }
+}
 
-char ** parsesemi(char * a){
+void reOut(char* a, char* file) {
+  int sout = dup(STDOUT_FILENO); 
+  int f = open(file, O_WRONLY|O_CREAT, 0644);
+  dup2(f,STDOUT_FILENO); 
+  execute(a);
+  dup2(sout, STDOUT_FILENO);
+  close(f);
+}
+
+void reIn(char* a, char* file) {
+  int sin = dup(STDIN_FILENO);
+  int f = open(file, O_RDONLY, 0644);
+  dup2(f, STDIN_FILENO);
+  execute(a);
+  dup2(sin, STDIN_FILENO);
+  close(f);
+}
+
+
+char ** parsesemi(char * a, char spliter){
   char ** b = (char **)(malloc(sizeof(char *)));
   int w = 0;
   char * s = a;
   while(s){
-    b[w] = strsep(&s, ";");
+    b[w] = strsep(&s, spliter);
     //printf("%s\n", strsep(&s, ";"));
     w ++;
   }
@@ -61,7 +80,7 @@ int main(){
       char a[256];
       printf(">>>");
       fgets(a,sizeof(a),stdin);
-      char ** f = parsesemi(a);
+      char ** f = parsesemi(a,";");
       int i = 0;
       // if(strstr(f[0], "cd")){
       //execute(f[0]);
