@@ -9,7 +9,18 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <unistd.h>
+#include "shell.h"
 
+/*========int execute(char * a)=========
+	Inputs: char * a
+	Returns: int (0)
+
+	Takes in a command
+	Parses along space
+	If cd does special case
+	if exit does special case
+	Else calls execvp
+	====================*/
 
 int execute(char * a){
   char *s = a;
@@ -40,6 +51,16 @@ int execute(char * a){
   return 0;
   }
 
+
+	/*======== void reOut(char* a, char* file) ==========
+	Inputs: char* a
+		char* file
+	Returns: Nothing! It is void.
+
+	Redirection for >
+	Puts output of command to file
+	====================*/
+
 void redirOut(char* a, char* file) {
   int sout = dup(STDOUT_FILENO); 
   int f = open(file, O_WRONLY|O_CREAT, 0644);
@@ -49,6 +70,16 @@ void redirOut(char* a, char* file) {
   close(f);
 }
 
+
+	/*======== void reIn(char* a, char* file) ==========
+	Inputs: char* a
+		char* file
+	Returns: Nothing! It is void.
+
+	Redirection for <
+	Puts output of command to file
+	====================*/
+
 void redirIn(char* a, char* file) {
   int sin = dup(STDIN_FILENO);
   int f = open(file, O_RDONLY, 0644);
@@ -57,6 +88,14 @@ void redirIn(char* a, char* file) {
   dup2(sin, STDIN_FILENO);
   close(f);
 }
+
+/*======== void pipes(char *a, char *b) ==========
+	Inputs: char* a
+		char* b
+	Returns: Nothing! It is void!
+
+	Uses redirOut and redirIn to implement pipes
+	====================*/
 
 void pipes(char *a, char *b){
   char *file = "connector";
@@ -81,6 +120,17 @@ void pipes(char *a, char *b){
   exit(0);
 }
 
+/*======== char ** parsesemi(char * a, char * spliter) ==========
+	Inputs: char* a
+		char* spliter
+	Returns: char **
+
+	Takes in a line of text
+	Parses based off given character
+	Returns a 2d array with each command seperated
+	====================*/
+
+
 char ** parsesemi(char * a, char * spliter){
   char ** b = (char **)(malloc(sizeof(char *)));
   int w = 0;
@@ -92,6 +142,15 @@ char ** parsesemi(char * a, char * spliter){
   }
   return  b;
 }
+
+
+	/*======== int main() ==========
+	Returns: int (0)
+
+	Uses fgets
+	Calls functions and forks based contents
+	Deals with parent and child functions
+	====================*/
 
 int main(){
   int p = getpid();

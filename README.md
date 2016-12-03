@@ -15,6 +15,7 @@ Attempted:
 
 Bugs:
 	When you just call cd without a path the program crashes
+	cd must be first function in a chain
 
 Files & Function Headers:
 shell.c
