@@ -40,7 +40,7 @@ int execute(char * a){
   return 0;
   }
 
-void reOut(char* a, char* file) {
+void redirOut(char* a, char* file) {
   int sout = dup(STDOUT_FILENO); 
   int f = open(file, O_WRONLY|O_CREAT, 0644);
   dup2(f,STDOUT_FILENO); 
@@ -49,13 +49,20 @@ void reOut(char* a, char* file) {
   close(f);
 }
 
-void reIn(char* a, char* file) {
+void redirIn(char* a, char* file) {
   int sin = dup(STDIN_FILENO);
   int f = open(file, O_RDONLY, 0644);
   dup2(f, STDIN_FILENO);
   execute(a);
   dup2(sin, STDIN_FILENO);
   close(f);
+}
+
+void pipes(char *a, char *b){
+  char *file = "connector";
+  redirOut(a, file);
+  redirIn(b, file);
+  remove(file);
 }
 
 char ** parsesemi(char * a, char * spliter){
@@ -92,7 +99,7 @@ int main(){
 	  if(strstr(m[1],"\n")){
 	    *(strstr(m[1],"\n")) = 0;
 	  }
-	  reOut(m[0],m[1]);
+	  redirOut(m[0],m[1]);
 	}
 	// input
 	else if (getppid() == p && strstr(f[i],"<") != NULL){
@@ -100,8 +107,13 @@ int main(){
           if(strstr(m[1],"\n")){
             *(strstr(m[1],"\n")) = 0;
           }
-          reIn(m[0],m[1]);
+          redirIn(m[0],m[1]);
         }
+	// pipes
+	else if (getppid() == p && strstr(f[i],"|") != NULL){
+	  char ** m = parsesemi(f[i],"|");
+	  pipes(m[0],m[1]);
+	}
 	// regular commands
 	else if (getppid() == p){
 	  execute(f[i]);
