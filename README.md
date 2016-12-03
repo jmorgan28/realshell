@@ -16,6 +16,9 @@ Attempted:
 Bugs:
 	When you just call cd without a path the program crashes
 	cd must be first function in a chain
+	IMPORTANT: YOU MAY NOT HAVE A SPACE DIRECTLY BEFORE OR AFTER
+	<,>,;,|
+	RATHER THAN ls ; ls -l must be ls;ls -l
 
 Files & Function Headers:
 shell.c

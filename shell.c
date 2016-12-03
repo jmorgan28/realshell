@@ -1,3 +1,9 @@
+/*IMPORTANT: YOU MAY NOT HAVE A SPACE DIRECTLY BEFORE OR AFTER
+	<,>,;,|
+	RATHER THAN ls ; ls -l must be ls;ls -l*/
+
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
