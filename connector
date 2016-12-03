@@ -1,0 +1,25 @@
+total 175
+-rw-r--r-- 1 Jackson 197121     0 Dec  2 19:43  t.txt
+-rw-r--r-- 1 Jackson 197121  1754 Dec  2 20:10 README.md
+-rw-r--r-- 1 Jackson 197121    11 Dec  1 22:44 README.md~
+-rwxr-xr-x 1 Jackson 197121 68599 Dec  2 20:04 a.exe
+-rw-r--r-- 1 Jackson 197121 13602 Dec  2 18:58 a.out
+-rw-r--r-- 1 Jackson 197121  1345 Dec  2 20:13 connector
+-rw-r--r-- 1 Jackson 197121   114 Dec  1 22:44 makefile
+-rw-r--r-- 1 Jackson 197121  2658 Dec  2 20:05 shell.c
+-rw-r--r-- 1 Jackson 197121  2658 Dec  2 20:04 shell.c~
+-rwxr-xr-x 1 Jackson 197121 68599 Dec  2 20:12 shell.exe
+-rw-r--r-- 1 Jackson 197121  1069 Dec  2 00:40 shell.exe.stackdump
+-rw-r--r-- 1 Jackson 197121    98 Dec  2 19:44 t.txt
+drwxr-xr-x 1 Jackson 197121     0 Dec  2 00:40 test
+ 1 Jackson 197121    11 Dec  1 22:44 README.md~
+-rwxr-xr-x 1 Jackson 197121 68599 Dec  2 20:04 a.exe
+-rw-r--r-- 1 Jackson 197121 13602 Dec  2 18:58 a.out
+-rw-r--r-- 1 Jackson 197121   117 Dec  2 20:12 connector
+-rw-r--r-- 1 Jackson 197121   114 Dec  1 22:44 makefile
+-rw-r--r-- 1 Jackson 197121  2658 Dec  2 20:05 shell.c
+-rw-r--r-- 1 Jackson 197121  2658 Dec  2 20:04 shell.c~
+-rwxr-xr-x 1 Jackson 197121 68599 Dec  2 20:12 shell.exe
+-rw-r--r-- 1 Jackson 197121  1069 Dec  2 00:40 shell.exe.stackdump
+-rw-r--r-- 1 Jackson 197121    98 Dec  2 19:44 t.txt
+drwxr-xr-x 1 Jackson 197121     0 Dec  2 00:40 test
