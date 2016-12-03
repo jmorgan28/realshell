@@ -60,9 +60,25 @@ void redirIn(char* a, char* file) {
 
 void pipes(char *a, char *b){
   char *file = "connector";
-  redirOut(a, file);
-  redirIn(b, file);
+  int p = getpid();
+  int pp = 0;
+  fork();
+  if(getppid() == p){
+    pp = fork();
+    if(!pp){
+      redirOut(a, file);
+      //      printf("a");
+    }
+    else{
+      wait();
+      redirIn(b, file);
+      //      printf("b");
+    }
+  }
+  //  printf("c");
+  wait();
   remove(file);
+  exit(0);
 }
 
 char ** parsesemi(char * a, char * spliter){
@@ -112,7 +128,10 @@ int main(){
 	// pipes
 	else if (getppid() == p && strstr(f[i],"|") != NULL){
 	  char ** m = parsesemi(f[i],"|");
-	  pipes(m[0],m[1]);
+	  if(strstr(m[1],"\n")){
+            *(strstr(m[1],"\n")) = 0;
+          }
+          pipes(m[0],m[1]);
 	}
 	// regular commands
 	else if (getppid() == p){
